@@ -1,5 +1,7 @@
-import { OnRpcRequestHandler } from '@metamask/snap-types';
-
+import {
+  OnTransactionHandler,
+  OnRpcRequestHandler,
+} from '@metamask/snap-types';
 /**
  * Get a message from the origin. For demonstration purposes only.
  *
@@ -38,4 +40,16 @@ export const onRpcRequest: OnRpcRequestHandler = ({ origin, request }) => {
     default:
       throw new Error('Method not found.');
   }
+};
+
+export const onTransaction: OnTransactionHandler = async ({
+  transaction,
+  chainId,
+}) => {
+  const insights = {
+    'Transaction sender': transaction.from,
+    'Arbitrary name': "Hello I'm a string",
+    'Chain ID': chainId,
+  };
+  return { insights };
 };
